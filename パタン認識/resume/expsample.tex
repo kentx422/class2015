@@ -1,0 +1,140 @@
+%
+%	expsample.tex
+%		written by Takahiko Mendori
+%	tex sample source using kut-report class
+%
+
+%----  プリアンブル（設定） ここから  ----
+\documentclass{kut-report}						%	使用するクラスファイル
+\usepackage{eclbkbox}							%	追加するパッケージファイル
+\regyear{2000}									%	提出年
+\regmonth{6}									%	提出月
+\regday{1}										%	提出日
+\exercise{情報システム工学実験第1}				%	科目名
+\sequence{1}									%
+\title{ソースプログラムを含んだレポートのサンプル}	%	レポートのタイトル
+\author{妻鳥 貴彦}								%	氏名
+\regnum{mendori@info.kochi-tech.ac.jp}			%	メールアドレスor学籍番号
+%----  プリアンブル（設定） ここまで  ----
+
+%	enumerate環境の1. 2. 3. を(1)(2)(3)に変更するおまじない（笑）
+\renewcommand{\labelenumi}{(\theenumi)}
+
+%----  ドキュメント ここから  -----
+\begin{document}
+\maketitle										%	表紙の作成
+
+\section{このサンプルについて}					%	節
+このサンプルは，特にソースプログラムを含んだレポートを書くために
+少しでも見やすいものにしてもらうためのサンプルです．
+\LaTeX のソースには，なるべくコメントをつけるようにしていますので，
+できればソースファイル（このファイルの中身）を理解しながら，
+少しでも見やすい（体裁の整った）レポートを作成するようにしてください．
+
+\section{ソースプログラムの提示例}				%	節
+p\LaTeX のソースを書く（文書を作成する）ときに，空白や改行を
+入れたい場合には，明示的に指示してやる必要があります．
+Pascalのプログラムのように，インデント（字下げ）や改行がある場合は，
+``{\texttt verbatim}''環境を利用することをお勧めします
+\footnote{ここで示すソースプログラムの提示の仕方は，
+あくまでも一つのやり方です．
+別のやり方もたくさんあるでしょうし，個人の趣味もありますので，
+あくまでも参考程度にしてください．}．			%	footnote（脚注）
+
+使い方は，\verb|\begin{verbatim}| $\sim$ \verb|\end{verbatim}|とします．
+\verb|\begin|と\verb|\end|の間は，改行や空白がそのまま出力されます．
+次節で，実際にプログラムを提示してみます．\TeX のソースと見比べて
+ください．
+\subsection{ソースプログラムの提示例}			%	小節
+プログラムのソースをレポートに添付する必要がある場合は，
+このようにすることで，簡単に提示することができます．
+\begin{center}									%	センタリング
+\begin{verbatim}
+program newton (input, output);
+
+const eps = 1.0e-11;
+var x, x1 : real;
+
+begin
+   x:=1.0;
+   repeat
+      x1 := x;
+      x := (2.0/3.0)*(x1+1.0/sqr(x1));
+   until abs(x-x1)<eps;
+   writeln('cubic root of 2 = ', x:15:10);
+end.
+
+\end{verbatim}
+\end{center}
+
+\subsection{枠をつけてみよう}
+次に，ソースプログラムの部分に枠をつけてみます．
+枠をつけるために，新たなスタイルファイルを追加する必要があります．
+\LaTeX ソースのプリアンブルの部分に
+``{\verb|\usepackage{eclbkbox}|}'' を宣言することで，
+\texttt{breakbox} 環境を利用できるようになります．
+\texttt{breakbox} 環境は，その環境の中身全体に対して枠を付けてくれる
+環境です．\texttt{breakbox} 環境と \texttt{verbatim} 環境とを
+組み合わせることで，ソースプログラムの部分に枠をつけることができます．
+
+\begin{center}									%	センタリング
+\begin{breakbox}								%	breakbox環境開始
+\begin{verbatim}
+program newton (input, output);
+
+const eps = 1.0e-11;
+var x, x1 : real;
+
+begin
+   x:=1.0;
+   repeat
+      x1 := x;
+      x := (2.0/3.0)*(x1+1.0/sqr(x1));
+   until abs(x-x1)<eps;
+   writeln('cubic root of 2 = ', x:15:10);
+end.
+
+\end{verbatim}
+\end{breakbox}
+プログラム~~~{\texttt{newton.p}}
+\end{center}
+
+\section{\LaTeX のソースを読む}
+\LaTeX のソースをゼロから書くのは容易ではない．しかし，
+例えばこのソース（\texttt{expsample.tex}）であったり，
+\texttt{kut-report.cls} に付いているサンプル（\texttt{sample.tex}）の
+ソースと，そのソースをコンパイルしてできた組版の結果とを
+見比べて，どんどん活用してもらいたい．特に，\texttt{kut-report.cls}に
+付いているサンプル（\texttt{sample.tex}）は，\LaTeX の基本的な知識が
+全て詰め込まれている．まずは，このソースを読むことをお勧めしたい．
+読む部分は，文書の内容ではなく，どこでどのようなコマンドを用いているか，
+ということである．
+
+例えば，\verb|\section|の使われ方，\texttt{enumerate}環境や
+ \texttt{itemize}環境の使われ方，表の書き方，図の貼り方の一つ一つを
+組版の結果と見比べることで，どのようなソースを書けば良いか，自ずと
+明らかになってこよう．
+
+細かな調整の仕方や何が出来て何が出来ないかなどについては，
+残念ながら参考書類に頼るしかない．が，市販のワードプロセッシングソフトを
+買うことを考えると安いものである．妻鳥が個人的にお薦めする本を，
+参考文献~\cite{otobe}~に挙げておく．
+
+\section{おわりに}
+今回は，特に情報システム工学実験第1での最終課題で作成する
+レポートを \LaTeX を用いた書き方について述べた．慣れるまで \LaTeX を
+用いてレポートを作成するのは難しいかもしれない．しかし，日頃から
+使っているとそのうち要領がつかめてきて，容易にレポートを作成できる
+ようになるはずである．
+
+%----  参考文献リスト ここから  ----
+\begin{thebibliography}{1}
+\bibitem{otobe}
+乙部厳己+江口庄英著：
+``p{\LaTeXe} for WINDOWS Another Manual Vol.1 Basic Kit 1999'',
+ソフトバンク パブリッシング株式会社（1999）.
+\end{thebibliography}
+%----  参考文献リスト ここまで  ----
+\end{document}
+%----  ドキュメント ここまで  ----
+
